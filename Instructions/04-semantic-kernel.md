@@ -1,12 +1,12 @@
 ---
 lab:
-  title: Développer un agent Azure AI avec le SDK Semantic Kernel
-  description: Découvrez comment utiliser le SDK Semantic Kernel pour créer et utiliser un agent Azure AI Agent Service.
+  title: Développer un agent Azure AI avec le kit de développement logiciel (SDK) de noyau sémantique
+  description: Découvrez comment utiliser le kit de développement logiciel (SDK) de noyau sémantique pour créer et utiliser un agent Azure AI Agent Service.
 ---
 
-# Développer un agent Azure AI avec le SDK Semantic Kernel
+# Développer un agent Azure AI avec le kit de développement logiciel (SDK) de noyau sémantique
 
-Dans cet exercice, vous allez utiliser le service Azure AI Agent Service et Semantic Kernel pour créer un agent IA qui traite les demandes de dépenses.
+Dans cet exercice, vous allez utiliser Azure AI Agent Service et le noyau sémantique pour créer un agent IA qui crée un e-mail de note de frais.
 
 Cet exercice devrait prendre environ **30** minutes.
 
@@ -26,7 +26,7 @@ Commençons par créer un projet Azure AI Foundry.
     - **Nom du hub** : *un nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : choisissez une région dans la liste suivante :\*
+    - **Emplacement** : sélectionnez l’une des régions suivantes :\*
         - eastus
         - eastus2
         - centre de la suède
@@ -35,7 +35,7 @@ Commençons par créer un projet Azure AI Foundry.
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Au moment de l’écriture, ces régions prennent en charge le modèle gpt-4o à utiliser dans les agents. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
+    > \* Au moment de l’écriture, ces régions prennent en charge le modèle gpt-4o à utiliser pour les agents. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -44,7 +44,7 @@ Commençons par créer un projet Azure AI Foundry.
 
 ## Déployer un modèle d’IA générative
 
-Vous êtes maintenant prêt à déployer un modèle de langage d’IA générative pour prendre en charge votre agent.
+Vous avez effectué toutes les préparations nécessaires au déploiement d’un modèle de langage d’IA générative pour votre agent.
 
 1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
@@ -64,7 +64,7 @@ Vous êtes maintenant prêt à déployer un modèle de langage d’IA générati
 
 ## Créer une application cliente agent
 
-Vous êtes maintenant prêt à créer une application cliente qui définit un agent et une fonction personnalisée. Le code dont vous avez besoin est fourni dans un référentiel GitHub.
+Vous avez effectué toutes les préparations nécessaires à la création d’une application cliente qui définit un agent et une fonction personnalisée. Tout le code dont vous avez besoin est fourni dans un référentiel GitHub.
 
 ### Préparer l’environnement
 
@@ -89,16 +89,16 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    git clone https://github.com/MicrosoftLearning/mslearn-ai-agents ai-agents
     ```
 
-    > **Conseil** : lorsque vous entrez des commandes dans le Cloud Shell, la sortie peut occuper une grande partie de la mémoire tampon d’écran et le curseur de la ligne en cours peut être masqué. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+    > **Conseil** : lorsque vous saisissez des commandes dans le Cloud Shell, la sortie peut occuper une grande partie de la mémoire tampon d’écran et le curseur de la ligne actuelle peut être masqué. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
-1. Lorsque le référentiel a été cloné, entrez la commande suivante pour modifier le répertoire de travail vers le dossier contenant les fichiers de code, puis les répertorier tous.
+1. Lorsque le référentiel a été cloné, entrez la commande suivante pour déplacer le répertoire de travail vers le dossier contenant les fichiers de code et les répertorier tous.
 
     ```
    cd ai-agents/Labfiles/04-semantic-kernel/python
    ls -a -l
     ```
 
-    Les fichiers fournis incluent le code d’application, un fichier pour les paramètres de configuration et un fichier contenant des données de dépenses.
+    Les fichiers fournis incluent le code d’application et un fichier pour les paramètres de configuration.
 
 ### Configurer les paramètres de l’application
 
@@ -110,7 +110,7 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    pip install python-dotenv azure-identity semantic-kernel[azure] 
     ```
 
-    > **Note** : l’installation de *semantic-kernel[azure]* installe automatiquement une version sémantique compatible avec *azure-ai-projects*.
+    > **Remarque** : l’installation d’un *noyau sémantique[azure]* entraîne l’installation automatique d’une version compatible avec le noyau sémantique des *azure-ai-projects*.
 
 1. Saisissez la commande suivante pour modifier le fichier de configuration fourni :
 
@@ -120,26 +120,26 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre déploiement du modèle gpt-4o.
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez l’espace réservé **your_model_deployment** par le nom que vous avez attribué au déploiement du modèle gpt-4o.
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Écrire du code pour une application agent
 
-> **Conseil** : lorsque vous ajoutez du code, veillez à conserver la mise en retrait correcte. Utilisez les commentaires existants comme guide, en entrant le nouveau code au même niveau de mise en retrait.
+> **Conseil** : lorsque vous ajoutez du code, veillez à conserver la mise en retrait correcte. Utilisez les commentaires existants pour vous guider, et entrez le nouveau code au même niveau de mise en retrait.
 
-1. Saisissez la commande suivante pour modifier le fichier de code d’agent fourni :
+1. Entrez la commande suivante pour modifier le fichier de code de l’agent fourni :
 
     ```
    code semantic-kernel.py
     ```
 
-1. Passez en revue le code dans le fichier. Il contient :
-    - Certaines instructions d’**importation** pour ajouter des références à des espaces de noms couramment utilisés
-    - Une fonction *principale* qui charge un fichier contenant des données de dépenses, demande à l’utilisateur des instructions, puis appelle...
-    - Une fonction **process_expenses_data** dans laquelle le code permettant de créer et utiliser votre agent doit être ajouté.
-    - Une classe **EmailPlugin** qui inclut une fonction de noyau nommée **send_email**, qui sera utilisée par votre agent pour simuler les fonctionnalités utilisées pour envoyer un e-mail.
+1. Examinez le code inclus dans ce fichier. Il contient :
+    - des instructions d’**import** pour ajouter des références à des espaces de noms couramment utilisés.
+    - une fonction *principale* qui définit les données d’une note de frais (dans un scénario réel, elles seraient probablement envoyées sous forme de fichier) et appelle ensuite...
+    - une fonction **create_expense_claim** à laquelle il faut ajouter le code qui permettra de créer et d’utiliser votre agent.
+    - une classe **EmailPlugin** qui inclut une fonction noyau nommée **send_email** et qui sera utilisée par votre agent pour simuler les fonctionnalités utilisées pour envoyer un e-mail.
 
-1. En haut du fichier, après l’instruction **importer** existante, recherchez le commentaire **Ajouter des références** et ajoutez le code suivant pour référencer les espaces de noms dans les bibliothèques dans lesquelles vous devez implémenter votre agent :
+1. En haut du fichier, après l’instruction d’**import** existante, recherchez le commentaire **Ajouter des références**. Ensuite, ajoutez le code suivant pour référencer les espaces de noms dans les bibliothèques dont vous avez besoin pour implémenter votre agent :
 
     ```python
    # Add references
@@ -150,7 +150,7 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    from typing import Annotated
     ```
 
-1. En bas du fichier, recherchez le commentaire **Créer un plug-in pour la fonctionnalité de messagerie** et ajoutez le code suivant pour définir une classe pour un plug-in contenant une fonction que votre agent utilisera pour envoyer des e-mails (les plug-ins sont un moyen d’ajouter des fonctionnalités personnalisées aux agents Semantic Kernel)
+1. En bas du fichier, recherchez le commentaire **Créer un plug-in pour la fonctionnalité de messagerie** et ajoutez le code suivant afin de définir une classe pour un plug-in contenant une fonction que votre agent utilisera pour envoyer des e-mails (les plug-ins constituent un moyen d’ajouter des fonctionnalités personnalisées aux agents de noyau sémantique).
 
     ```python
    # Create a Plugin for the email functionality
@@ -167,11 +167,11 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
            print(body, "\n")
     ```
 
-    > **Note** : la fonction *simule* l’envoi d’un e-mail en l’imprimant dans la console. Dans une application réelle, vous utiliseriez un service SMTP ou similaire pour envoyer l’e-mail.
+    > **Remarque** : la fonction *simule* l’envoi d’un e-mail en l’affichant dans la console. Dans un scénario réel, vous utiliseriez un service SMTP ou similaire pour envoyer l’e-mail.
 
-1. Revenez au-dessus du nouveau code de classe **EmailPlugin**, dans la fonction **create_expense_claim**. Recherchez le commentaire **Obtenir les paramètres de configuration**, puis ajoutez le code suivant pour charger le fichier de configuration et créer un objet **AzureAIAgentSettings** (qui inclura automatiquement les paramètres de l’agent Azure AI à partir de la configuration).
+1. Remontez dans le nouveau code de la classe **EmailPlugin**, dans la fonction **create_expense_claim**, et recherchez le commentaire **Obtenir les paramètres de configuration**. Ensuite, ajoutez le code suivant pour charger le fichier de configuration et créer un objet **AzureAIAgentSettings** (il inclura automatiquement les paramètres de l’agent Azure AI à partir de la configuration).
 
-    Veillez à maintenir le niveau de retrait.
+    (Veillez à maintenir le niveau de mise en retrait)
 
     ```python
    # Get configuration settings
@@ -179,9 +179,9 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    ai_agent_settings = AzureAIAgentSettings()
     ```
 
-1. Recherchez le commentaire **Se connecter au projet Azure AI Foundry**, puis ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des identifiants Azure que vous utilisez actuellement pour votre session :
+1. Recherchez le commentaire **Se connecter au projet Azure AI Foundry** et ajoutez le code suivant afin de vous connecter à votre projet Azure AI Foundry à l’aide des mêmes informations d’identification Azure que vous utilisez actuellement pour votre session.
 
-    Veillez à maintenir le niveau de retrait.
+    (Veillez à maintenir le niveau de mise en retrait)
 
     ```python
    # Connect to the Azure AI Foundry project
@@ -195,9 +195,9 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    ):
     ```
 
-1. Recherchez le commentaire **Définir un agent Azure AI qui envoie un e-mail de demande de frais** et ajoutez le code suivant pour créer une définition d’agent Azure AI pour votre agent.
+1. Recherchez le commentaire **Définir un agent Azure AI qui envoie un e-mail de note de frais** et ajoutez le code suivant pour créer une définition d’agent Azure AI pour votre agent.
 
-    Veillez à maintenir le niveau de retrait.
+    (Veillez à maintenir le niveau de mise en retrait)
 
     ```python
    # Define an Azure AI agent that sends an expense claim email
@@ -210,9 +210,9 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    )
     ```
 
-1. Recherchez le commentaire **Créer un agent Semantic Kernel** et ajoutez le code suivant pour créer un objet d’agent Semantic Kernel pour votre agent Azure AI qui inclut une référence au plug-in **EmailPlugin**.
+1. Recherchez le commentaire **Créer un agent de noyau sémantique** et ajoutez le code suivant pour créer un objet d’agent de noyau sémantique pour votre agent Azure AI et inclure une référence au plug-in **EmailPlugin**.
 
-    Veillez à maintenir le niveau de retrait.
+    (Veillez à maintenir le niveau de mise en retrait)
 
     ```python
    # Create a semantic kernel agent
@@ -223,16 +223,16 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
    )
     ```
 
-1. Recherchez le commentaire **Utiliser l’agent pour traiter les données de dépenses** et ajoutez le code suivant pour créer un thread pour que votre agent s’exécute, puis appelez-le avec un message de conversation.
+1. Recherchez le commentaire **Utiliser l’agent pour générer un e-mail de note de frais** et ajoutez le code suivant pour créer un thread sur lequel votre agent va s’exécuter, puis appelez-le en écrivant un message.
 
-    Veillez à conserver le niveau de retrait :
+    (Veillez à conserver le niveau de mise en retrait) :
 
     ```python
-   # Use the agent to process the expenses data
+   # Use the agent to generate an expense claim email
    thread: AzureAIAgentThread = AzureAIAgentThread(client=project_client)
    try:
         # Add the input prompt to a list of messages to be submitted
-        prompt_messages = [f"{prompt}: {expenses_data}"]
+        prompt_messages = [f"Create an expense claim for the following expenses: {expenses_data}"]
         # Invoke the agent for the specified thread with the messages
         response = await expenses_agent.get_response(thread_id=thread.id, messages=prompt_messages)
         # Display the response
@@ -246,12 +246,11 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
         await project_client.agents.delete_agent(expenses_agent.id)
     ```
 
-1. Vérifiez que le code de votre agent est achevé en utilisant les commentaires pour vous aider à comprendre ce que fait chaque bloc de code, puis enregistrer vos modifications de code (**Ctrl+S**).
-1. Gardez l’éditeur de code ouvert au cas où vous devez corriger les fautes de frappe dans le code, mais redimensionnez les volets afin que vous puissiez voir davantage la console de ligne de commande.
+1. Relisez le code finalisé de votre agent en vous aidant des commentaires pour mieux comprendre ce que fait chaque bloc de code, puis enregistrez les modifications du code (**Ctrl+S**).
 
-### Connectez-vous à Azure et exécutez votre application.
+### Se connecter à Azure et exécuter l’application
 
-1. Dans le volet de ligne de commande Cloud Shell, sous l’éditeur de code, entrez la commande suivante pour vous connecter à Azure :
+1. Dans le volet de ligne de commande Cloud Shell, sous l’éditeur de code, entrez la commande suivante pour vous connecter à Azure.
 
     ```
     az login
@@ -259,34 +258,28 @@ Vous êtes maintenant prêt à créer une application cliente qui définit un ag
 
     **<font color="red">Vous devez vous connecter à Azure, même si la session Cloud Shell est déjà authentifiée.</font>**
 
-    > **Note** : dans la plupart des scénarios, l’utilisation d’*az login* suffit. Toutefois, si vous avez des abonnements dans plusieurs locataires, vous devrez peut-être spécifier le locataire à l’aide du paramètre *--tenant*. Pour plus d’informations, consultez [Se connecter à Azure de manière interactive à l’aide d’Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively).
+    > **Remarque** :dans la plupart des scénarios, l’utilisation d’*az login* suffit. Toutefois, si vous avez des abonnements dans plusieurs locataires, vous devrez peut-être spécifier le locataire à l’aide du paramètre *--tenant*. Pour plus d’informations, consultez [Se connecter à Azure de manière interactive à l’aide d’Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively).
     
-1. Lorsque vous y êtes invité, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni et vos informations d’identification Azure. Terminez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Azure AI Foundry si vous y êtes invité.
-1. Une fois connecté, entrez la commande suivante pour exécuter l’application :
+1. Lorsque l’invite apparaît, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni ainsi que vos informations d’identification Azure. Effectuez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Azure AI Foundry si nécessaire.
+1. Une fois la connexion effectuée, entrez la commande suivante pour exécuter l’application :
 
     ```
    python semantic-kernel.py
     ```
     
-    L’application s’exécute à l’aide des informations d’identification de votre session Azure authentifiée pour vous connecter à votre projet et créer et exécuter l’agent.
-
-1. Lorsqu’on vous demande quoi faire avec les données de dépenses, entrez l’invite suivante :
-
-    ```
-   Submit an expense claim
-    ```
-
-1. Une fois l’application terminée, passez en revue la production. L’agent doit avoir composé un e-mail pour une demande de frais en fonction des données fournies.
+    L’application s’exécute à l’aide des informations d’identification de votre session Azure authentifiée pour vous connecter à votre projet, et créer et exécuter l’agent.
 
     > **Conseil** : si l’application échoue en raison du dépassement de la limite de débit, patientez quelques secondes, puis réessayez. Si le quota disponible dans votre abonnement est insuffisant, le modèle peut ne pas être en mesure de répondre.
 
+1. Une fois que l’application a terminé, vérifiez la sortie. L’agent doit avoir composé un e-mail pour une note de frais en fonction des données qui lui ont été fournies.
+
 ## Résumé
 
-Dans cet exercice, vous avez utilisé le service Azure AI Agent Service et Semantic Kernel pour créer un agent.
+Dans cet exercice, vous avez utilisé le kit de développement logiciel (SDK) et le noyau sémantique d’Azure AI Agent Service pour créer un agent.
 
 ## Nettoyage
 
-Si vous avez terminé d’explorer Azure AI Agent Service, vous devez supprimer les ressources que vous avez créées dans cet exercice pour éviter d’entraîner des coûts Azure inutiles.
+Si vous avez terminé d’explorer Azure AI Agent Service, vous devez supprimer les ressources que vous avez créées dans cet exercice pour éviter de générer des coûts Azure inutiles.
 
 1. Revenez à l’onglet du navigateur contenant le portail Azure (ou ouvrez à nouveau le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` dans un nouvel onglet de navigateur) et affichez le contenu du groupe de ressources dans lequel vous avez déployé les ressources utilisées dans cet exercice.
 1. Dans la barre d’outils, sélectionnez **Supprimer le groupe de ressources**.
