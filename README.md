@@ -11,3 +11,4 @@ Affichez les exercices du [site GitHub Pages pour ce référentiel](https://go.m
 ## Signaler un problème
 
 Si vous rencontrez des difficultés dans les exercices, signalez-les comme **problèmes** dans ce référentiel.
+
