@@ -1,12 +1,12 @@
 ---
 lab:
   title: Découvrir le développement d’agents IA
-  description: Découvrez les étapes de développement d’agents IA en explorant les outils Azure AI Agent Service dans le portail Azure AI Foundry.
+  description: Découvrez les étapes de développement d’agents IA en explorant Azure AI Agent Service dans le portail Azure AI Foundry.
 ---
 
 # Découvrir le développement d’agents IA
 
-Dans cet exercice, vous utilisez les outils Azure AI Agent Service dans le portail Azure AI Foundry pour créer un agent IA simple qui répond aux questions relatives aux notes de frais.
+Dans cet exercice, vous utilisez Azure AI Agent Service dans le portail Azure AI Foundry pour créer un agent IA simple qui répond aux questions des employés relatives aux notes de frais.
 
 Cet exercice prend environ **30** minutes.
 
@@ -72,7 +72,13 @@ Maintenant que vous avez déployé un modèle, tout est prêt pour créer un age
 
     Un nouvel agent portant un nom tel que *Agent123* devrait être créé automatiquement (si ce n’est pas le cas, utilisez le bouton **+Nouvel agent** pour en créer un).
 
-1. Sélectionnez votre nouvel agent. Ensuite, dans le volet **Configuration** de votre nouvel agent, définissez le **nom de l’agent** sur `ExpensesAgent`, vérifiez que le modèle de déploiement gpt-4o que vous avez créé précédemment est sélectionné et définissez les **instructions** sur `Answer questions related to expense claims`.
+1. Sélectionnez votre nouvel agent. Ensuite, dans le volet **Configuration** de votre nouvel agent, définissez le **nom de l’agent** sur `ExpensesAgent`, vérifiez que le modèle de déploiement gpt-4o que vous avez créé précédemment est sélectionné et définissez les **instructions** sur :
+
+    ```prompt
+   You are an AI assistant for corporate expenses.
+   You answer questions about expenses based on the expenses policy data.
+   If a user wants to submit an expense claim, you get their email address, a description of the claim, and the amount to be claimed and write the claim details to a text file that the user can download.
+    ```
 
     ![Capture d’écran de la page de configuration de l’agent IA dans le portail Azure AI Foundry.](./Media/ai-agent-setup.png)
 
@@ -83,7 +89,9 @@ Maintenant que vous avez déployé un modèle, tout est prêt pour créer un age
 
 1. Dans le volet **Configuration**, dans la section **Connaissances**, vérifiez que le fichier **Expenses_Vector_Store** apparaît et qu’il contient 1 fichier.
 
-    > **Remarque** : vous pouvez également ajouter des **actions** à un agent pour automatiser les tâches. Dans cet exemple d’agent de récupération d’informations simple, aucune action n’est requise.
+1. Sous la section **Connaissances**, en regard d’**Actions**, sélectionnez **+ Ajouter**. Ensuite, dans la boîte de dialogue **Ajouter une action**, sélectionnez **Interpréteur de code**, puis **Enregistrer** (vous n’avez pas besoin de charger de fichiers pour l’interpréteur de code).
+
+    Votre agent utilisera le document que vous avez chargé comme source de connaissances pour *ancrer* ses réponses (en d’autres termes, il répond aux questions en fonction du contenu de ce document). Il utilise l’outil d’interpréteur de code comme nécessaire pour effectuer des actions en générant et en exécutant son propre code Python.
 
 ## Tester l’agent
 
@@ -92,11 +100,16 @@ Maintenant que vous avez créé un agent, vous pouvez le tester dans le terrain 
 1. En haut du volet **Configuration** de votre agent, sélectionnez **Tester dans le terrain de jeu**.
 1. Dans le terrain de jeu, entrez l’invite `What's the maximum I can claim for meals?` et examinez la réponse de l’agent. Elle doit être basée sur les informations contenues dans le document de stratégie de dépenses que vous avez ajouté en tant que connaissance à la configuration de l’agent.
 
-    ![Capture d’écran du terrain de jeu de l’agent dans le portail Azure AI Foundry.](./Media/ai-agent-playground.png)
-
     > **Remarque** : si l’agent ne répond pas, cela signifie que le taux limite a été dépassé. patientez quelques secondes, puis réessayez. Si le quota disponible dans votre abonnement est insuffisant, le modèle peut ne pas être en mesure de répondre.
 
-1. Posez une question complémentaire, telle que `What about accommodation?`, et lisez la réponse.
+1. Essayez l’invite de suivi `I'd like to submit a claim for a meal.` et évaluez la réponse. L’agent doit vous demander les informations requises pour soumettre une demande.
+1. Indiquez à l’agent une adresse e-mail, par exemple, `fred@contoso.com`. L’agent doit accuser réception de la réponse et demander les informations restantes requises pour la demande de frais (description et montant)
+1. Envoyez une invite qui décrit la revendication et le montant, par exemple, `Breakfast cost me $20`.
+1. L’agent doit utiliser l’interpréteur de code pour préparer le fichier texte de la demande de frais et fournir un lien pour pouvoir le télécharger.
+
+    ![Capture d’écran du terrain de jeu de l’agent dans le portail Azure AI Foundry.](./Media/ai-agent-playground.png)
+
+1. Téléchargez et ouvrez le document texte pour afficher les détails de la demande de frais.
 
 ## Nettoyage
 
