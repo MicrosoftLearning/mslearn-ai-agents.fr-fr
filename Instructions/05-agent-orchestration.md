@@ -14,55 +14,42 @@ Cet exercice devrait prendre environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Créer un projet Azure AI Foundry
+## Déployer un modèle dans un projet Azure AI Foundry
 
-Commençons par créer un projet Azure AI Foundry.
+Commençons par déployer un projet Azure AI Foundry.
 
 1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
+1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
+1. Confirmez les paramètres suivants pour votre projet :
+    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : sélectionnez l’une des régions suivantes :\*
-        - eastus
-        - eastus2
-        - centre de la suède
-        - westus
-        - westus3
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
-    - **Connecter la Recherche Azure AI** : ignorer la connexion
+    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
 
-    > \* Au moment de l’écriture, ces régions prennent en charge le modèle gpt-4o à utiliser pour les agents. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
+    > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+1. Sélectionnez **Créer** et attendez que votre projet, y compris le déploiement du modèle gpt-4 que vous avez sélectionné, soit créé.
+1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement.
+
+    > **Remarque** : le paramètre TPM (jetons par minute) par défaut pour ce modèle pourrait être trop faible pour cet exercice. La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans votre abonnement. 
+
+1. Dans le volet de navigation de gauche, sélectionnez **Modèles et points de terminaison**, puis sélectionnez votre déploiement **gpt-4o**.
+
+1. Sélectionnez **Modifier**, puis augmentez la **limite du taux de jetons par minute**.
+
+   > **REMARQUE** : 40 000 jetons par minute devraient suffire pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à ce montant, vous serez en mesure d’effectuer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites si la limite de jetons est dépassée.
+
+1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
+1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
+
+    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
 
     ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./Media/ai-foundry-project.png)
-
-## Déployer un modèle d’IA générative
-
-Vous avez effectué toutes les préparations nécessaires au déploiement d’un modèle de langage d’IA générative pour vos agents.
-
-1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4o** dans la liste, puis sélectionnez-le et confirmez.
-1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
-    - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
-    - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
-    - **Limite de jetons par minute (en milliers)**  : 60 *(ou le maximum disponible dans votre abonnement si inférieur à 60 000)*
-    - **Filtre de contenu** : DefaultV2
-
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 60 000 jetons par minute (TPM) sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à ce montant, vous serez en mesure d’effectuer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites si la limite de jetons est dépassée.
-
-1. Attendez la fin du déploiement.
 
 ## Créer une application cliente de l’agent IA
 
@@ -122,7 +109,7 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez l’espace réservé **your_model_deployment** par le nom que vous avez attribué au déploiement du modèle gpt-4o.
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o.
 
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 

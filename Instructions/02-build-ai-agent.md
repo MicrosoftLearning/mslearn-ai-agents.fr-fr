@@ -20,47 +20,30 @@ Commençons par créer un projet Azure AI Foundry.
 
     ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+1. Sur la page d’accueil, sélectionnez **Créer un agent**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez les **options avancées**.
+1. Confirmez les paramètres suivants pour votre projet :
+    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : sélectionnez l’une des régions suivantes :\*
-        - eastus
-        - eastus2
-        - centre de la suède
-        - westus
-        - westus3
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
-    - **Connecter la Recherche Azure AI** : ignorer la connexion
+    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
 
-    > \* Au moment de l’écriture, ces régions prennent en charge le modèle gpt-4o à utiliser pour les agents. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
+    > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+1. Sélectionnez **Créer** et attendez que votre projet soit créé.
+1. Une fois le projet créé, le terrain de jeu Agents s’ouvrira automatiquement pour vous permettre de sélectionner ou de déployer un modèle :
 
-    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./Media/ai-foundry-project.png)
+    ![Capture d’écran du terrain de jeu Agents d’un projet Azure AI Foundry.](./Media/ai-foundry-agents-playground.png)
 
-## Déployer un modèle d’IA générative
+    >**Remarque** : un modèle de base GPT-4o est automatiquement déployé lors de la création de votre agent et de votre projet.
 
-Vous avez effectué toutes les préparations nécessaires au déploiement d’un modèle de langage d’IA générative pour votre agent.
+1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4o** dans la liste, puis sélectionnez-le et confirmez.
-1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
-    - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
-    - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
-    - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
-    - **Filtre de contenu** : DefaultV2
+    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à ce montant, vous serez en mesure d’effectuer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites si la limite de jetons est dépassée.
+    ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./Media/ai-foundry-project.png)
 
-1. Attendez la fin du déploiement.
+1. Copiez les valeurs du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous les utiliserez pour vous connecter à votre projet dans une application cliente.
 
 ## Créer une application cliente agent
 
@@ -107,7 +90,7 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install python-dotenv azure-identity azure-ai-projects
+   pip install -r requirements.txt azure-ai-projects
     ```
 
 1. Saisissez la commande suivante pour modifier le fichier de configuration fourni :
@@ -118,8 +101,8 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez l’espace réservé **your_model_deployment** par le nom que vous avez attribué au déploiement du modèle gpt-4o.
-1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
+1. Une fois que vous avez remplacé l’espace réservé, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Écrire du code pour une application agent
 
@@ -137,32 +120,32 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
     ```python
    # Add references
    from azure.identity import DefaultAzureCredential
-   from azure.ai.projects import AIProjectClient
-   from azure.ai.projects.models import FilePurpose, CodeInterpreterTool
+   from azure.ai.agents import AgentsClient
+   from azure.ai.agents.models import FilePurpose, CodeInterpreterTool, ListSortOrder, MessageRole
     ```
 
-1. Recherchez le commentaire **Se connecter au projet Azure AI Foundry**, puis ajoutez le code suivant pour vous connecter à votre projet Azure AI.
+1. Recherchez le commentaire **Se connecter au client de l’agent**, puis ajoutez le code suivant pour vous connecter au projet Azure AI.
 
     > **Conseil** : veillez à respecter le niveau de mise en retrait correct.
 
     ```python
-   # Connect to the Azure AI Foundry project
-   project_client = AIProjectClient.from_connection_string(
-        credential=DefaultAzureCredential
-            (exclude_environment_credential=True,
-             exclude_managed_identity_credential=True),
-        conn_str=PROJECT_CONNECTION_STRING
+   # Connect to the Agent client
+   agent_client = AgentsClient(
+       endpoint=project_endpoint,
+       credential=DefaultAzureCredential
+           (exclude_environment_credential=True,
+            exclude_managed_identity_credential=True)
    )
-   with project_client:
+   with agent_client:
     ```
 
-    Le code se connecte au projet Azure AI Foundry à l’aide des informations d’identification Azure actuelles. La dernière instruction *avec project_client* démarre un bloc de code qui définit l’étendue du client, en veillant à ce qu’il soit nettoyé lorsque le code dans le bloc est terminé.
+    Le code se connecte au projet Azure AI Foundry à l’aide des informations d’identification Azure actuelles. La dernière instruction *with agent_client* démarre un bloc de code qui définit l’étendue du client, en veillant à ce qu’il soit nettoyé lorsque le code dans le bloc est terminé.
 
-1. Recherchez le commentaire **Charger le fichier de données et créez un CodeInterpreterTool**, dans le bloc *avec project_client*, puis ajoutez le code suivant pour charger le fichier de données dans le projet et créer un CodeInterpreterTool qui peut accéder aux données dans celui-ci :
+1. Recherchez le commentaire **Charger le fichier de données et créer un CodeInterpreterTool**, dans le bloc *with agent_client*, puis ajoutez le code suivant pour charger le fichier de données dans le projet et créer un CodeInterpreterTool qui peut accéder aux données dans celui-ci :
 
     ```python
    # Upload the data file and create a CodeInterpreterTool
-   file = project_client.agents.upload_file_and_poll(
+   file = agent_client.files.upload_and_poll(
         file_path=file_path, purpose=FilePurpose.AGENTS
    )
    print(f"Uploaded {file.filename}")
@@ -174,8 +157,8 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     ```python
    # Define an agent that uses the CodeInterpreterTool
-   agent = project_client.agents.create_agent(
-        model=MODEL_DEPLOYMENT,
+   agent = agent_client.create_agent(
+        model=model_deployment,
         name="data-agent",
         instructions="You are an AI agent that analyzes the data in the file that has been uploaded. If the user requests a chart, create it and save it as a .png file.",
         tools=code_interpreter.definitions,
@@ -188,7 +171,7 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     ```python
    # Create a thread for the conversation
-   thread = project_client.agents.create_thread()
+   thread = agent_client.threads.create()
     ```
     
 1. Notez que la section suivante du code configure une boucle pour qu’un utilisateur entre une invite. Elle se termine quand l’utilisateur entre « quit ».
@@ -197,18 +180,14 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     ```python
    # Send a prompt to the agent
-   message = project_client.agents.create_message(
+   message = agent_client.messages.create(
         thread_id=thread.id,
         role="user",
         content=user_prompt,
     )
 
-    run = project_client.agents.create_and_process_run(thread_id=thread.id, agent_id=agent.id)
-     ```
-
-1. Recherchez le commentaire **Vérifier l’état d’exécution des échecs** et ajoutez le code suivant pour afficher les erreurs qui se produisent.
-
-    ```python
+   run = agent_client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
+     
    # Check the run status for failures
    if run.status == "failed":
         print(f"Run failed: {run.last_error}")
@@ -218,10 +197,12 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     ```python
    # Show the latest response from the agent
-   messages = project_client.agents.list_messages(thread_id=thread.id)
-   last_msg = messages.get_last_text_message_by_role("assistant")
+   last_msg = agent_client.messages.get_last_message_text_by_role(
+       thread_id=thread.id,
+       role=MessageRole.AGENT,
+   )
    if last_msg:
-        print(f"Last Message: {last_msg.text.value}")
+       print(f"Last Message: {last_msg.text.value}")
     ```
 
 1. Recherchez le commentaire **Obtenir l’historique des conversations**, qui se trouve après la fin de la boucle et ajoutez le code suivant pour imprimer les messages du thread de conversation. Inversez l’ordre pour les afficher dans une séquence chronologique.
@@ -229,27 +210,31 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
     ```python
    # Get the conversation history
    print("\nConversation Log:\n")
-   messages = project_client.agents.list_messages(thread_id=thread.id)
-   for message_data in reversed(messages.data):
-        last_message_content = message_data.content[-1]
-        print(f"{message_data.role}: {last_message_content.text.value}\n")
+   messages = agent_client.messages.list(thread_id=thread.id, order=ListSortOrder.ASCENDING)
+   for message in messages:
+       if message.text_messages:
+           last_msg = message.text_messages[-1]
+           print(f"{message.role}: {last_msg.text.value}\n")
     ```
 
-1. Recherchez le commentaire **Obtenir tous les fichiers** générés et ajoutez le code suivant pour obtenir des annotations de chemin d’accès de fichier à partir des messages (ce qui indique que l’agent a enregistré un fichier dans son stockage interne) et copiez les fichiers dans le dossier de l’application.
+1. Recherchez le commentaire **Obtenir tous les fichiers** générés et ajoutez le code suivant pour obtenir des annotations de chemin d’accès de fichier à partir des messages (ce qui indique que l’agent a enregistré un fichier dans son stockage interne) et copiez les fichiers dans le dossier de l’application. _REMARQUE_ : actuellement, le contenu de l’image n’est pas disponible dans le système.
 
     ```python
    # Get any generated files
-   for file_path_annotation in messages.file_path_annotations:
-        project_client.agents.save_file(file_id=file_path_annotation.file_path.file_id, file_name=Path(file_path_annotation.text).name)
-        print(f"File saved as {Path(file_path_annotation.text).name}")
+   for msg in messages:
+       # Save every image file in the message
+       for img in msg.image_contents:
+           file_id = img.image_file.file_id
+           file_name = f"{file_id}_image_file.png"
+           agent_client.files.save(file_id=file_id, file_name=file_name)
+           print(f"Saved image file to: {Path.cwd() / file_name}")
     ```
 
 1. Recherchez le commentaire **Nettoyer** et ajoutez le code suivant pour supprimer l’agent et le thread quand cela n’est plus nécessaire.
 
     ```python
    # Clean up
-   project_client.agents.delete_agent(agent.id)
-   project_client.agents.delete_thread(thread.id)
+   agent_client.delete_agent(agent.id)
     ```
 
 1. Passez en revue le code en utilisant les commentaires pour comprendre comment il effectue les tâches suivantes :
