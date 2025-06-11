@@ -187,7 +187,11 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
     )
 
    run = agent_client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
-     
+    ```
+
+1. Trouvez le commentaire **Vérifiez l’état d’exécution pour détecter les échecs** et ajoutez le code suivant pour rechercher d’éventuelles erreurs.
+
+    ```python
    # Check the run status for failures
    if run.status == "failed":
         print(f"Run failed: {run.last_error}")
