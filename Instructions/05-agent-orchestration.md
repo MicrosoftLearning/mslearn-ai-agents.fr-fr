@@ -1,6 +1,6 @@
 ---
 lab:
-  title: Développer une solution multi-agent
+  title: Développer une solution multi-agent avec Semantic Kernel
   description: Découvrez comment configurer plusieurs agents pour collaborer à l’aide du kit de développement logiciel (SDK) de noyau sémantique.
 ---
 
