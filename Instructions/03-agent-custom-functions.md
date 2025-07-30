@@ -6,9 +6,9 @@ lab:
 
 # Utiliser une fonction personnalisée dans un agent IA
 
-Dans cet exercice, vous allez explorer la création d’un agent qui peut utiliser des fonctions personnalisées pour effectuer des tâches.
+Dans cet exercice, vous allez explorer la création d’un agent qui peut utiliser des fonctions personnalisées pour effectuer des tâches. Vous allez créer un agent de support technique simple capable de collecter des informations sur un problème technique et générer un ticket de support.
 
-Vous allez créer un agent de support technique simple capable de collecter des informations sur un problème technique et générer un ticket de support.
+> **Conseil** : Le code utilisé dans cet exercice est basé sur le Kit de développement logiciel (SDK) Azure AI Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des Kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, reportez-vous aux [bibliothèques clientes du Kit de développement logiciel (SDK) Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
 
 Cet exercice devrait prendre environ **30** minutes.
 
@@ -33,19 +33,17 @@ Commençons par créer un projet Azure AI Foundry.
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Créer** et attendez que votre projet soit créé.
-1. Une fois le projet créé, le terrain de jeu Agents s’ouvrira automatiquement pour vous permettre de sélectionner ou de déployer un modèle :
+1. Si vous y êtes invité, déployez un modèle **gpt-4o** en utilisant l’option de déploiement *Standard global* ou *Standard* (selon la disponibilité de votre quota).
 
-    ![Capture d’écran du terrain de jeu Agents d’un projet Azure AI Foundry.](./Media/ai-foundry-agents-playground.png)
+    >**Remarque** : Si un quota est disponible, un modèle de base GPT-4o peut être déployé automatiquement lors de la création de votre Agent et de votre projet.
 
-    >**Remarque** : un modèle de base GPT-4o est automatiquement déployé lors de la création de votre agent et de votre projet.
+1. Une fois votre projet créé, le terrain de jeu Agents est ouvert.
 
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
-
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./Media/ai-foundry-project.png)
 
-1. Copiez la valeur du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous l’utiliserez pour vous connecter à votre projet dans une application cliente.
+1. Copiez les valeurs du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous les utiliserez pour vous connecter à votre projet dans une application cliente.
 
 ## Développer un agent qui utilise des outils de fonction
 
@@ -105,7 +103,7 @@ Maintenant que vous avez créé votre projet dans AI Foundry, nous allons dével
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry) et vérifiez que la variable MODEL_DEPLOYMENT_NAME est définie sur votre nom de modèle de déploiement (qui doit être *gpt-4o*).
 1. Une fois que vous avez remplacé l’espace réservé, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Définir une fonction personnalisée
@@ -245,7 +243,7 @@ Maintenant que vous avez créé votre projet dans AI Foundry, nous allons dével
    print("\nConversation Log:\n")
    messages = agent_client.messages.list(thread_id=thread.id, order=ListSortOrder.ASCENDING)
    for message in messages:
-       if message.text_messages:
+        if message.text_messages:
            last_msg = message.text_messages[-1]
            print(f"{message.role}: {last_msg.text.value}\n")
     ```

@@ -4,7 +4,7 @@ lab:
   description: Découvrez les étapes de développement d’agents IA en explorant Azure AI Agent Service dans le portail Azure AI Foundry.
 ---
 
-# Découvrir le développement d’agents IA
+# Explorez le développement de l’agent d’IA.
 
 Dans cet exercice, vous utilisez Azure AI Agent Service dans le portail Azure AI Foundry pour créer un agent IA simple qui répond aux questions des employés relatives aux notes de frais.
 
@@ -31,6 +31,10 @@ Commençons par créer un projet Azure AI Foundry.
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Créer** et attendez que votre projet soit créé.
+1. Si vous y êtes invité, déployez un modèle **gpt-4o** en utilisant le type de déploiement **norme Global** ou **Standard** (en fonction de la disponibilité des quotas) et personnalisez les détails du déploiement pour définir une **Limite de taux de jetons par minute** de 50 000 (ou le maximum disponible s’il est inférieur à 50 000).
+
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+
 1. Une fois le projet créé, le terrain de jeu Agents s’ouvrira automatiquement pour vous permettre de sélectionner ou de déployer un modèle :
 
     ![Capture d’écran du terrain de jeu Agents d’un projet Azure AI Foundry.](./Media/ai-foundry-agents-playground.png)
