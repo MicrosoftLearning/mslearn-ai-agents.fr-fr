@@ -6,7 +6,9 @@ lab:
 
 # Développer un agent IA
 
-Dans cet exercice, vous allez utiliser Azure AI Agent Service pour créer un agent simple qui analyse les données et crée des graphiques. L’agent utilise l’outil *interpréteur de code* intégré pour générer dynamiquement le code requis pour créer des graphiques en tant qu’images, puis les enregistre les images obtenues.
+Dans cet exercice, vous allez utiliser Azure AI Agent Service pour créer un agent simple qui analyse les données et crée des graphiques. L’agent peut utiliser l’outil intégré *Interpréteur de code* pour générer dynamiquement tout code nécessaire à l’analyse de données.
+
+> **Conseil** : Le code utilisé dans cet exercice est basé sur le Kit de développement logiciel (SDK) Azure AI Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des Kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, reportez-vous aux [bibliothèques clientes du Kit de développement logiciel (SDK) Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
 
 Cet exercice devrait prendre environ **30** minutes.
 
@@ -31,15 +33,13 @@ Commençons par créer un projet Azure AI Foundry.
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Créer** et attendez que votre projet soit créé.
-1. Une fois le projet créé, le terrain de jeu Agents s’ouvrira automatiquement pour vous permettre de sélectionner ou de déployer un modèle :
+1. Si vous y êtes invité, déployez un modèle **gpt-4o** en utilisant l’option de déploiement *Standard global* ou *Standard* (selon la disponibilité de votre quota).
 
-    ![Capture d’écran du terrain de jeu Agents d’un projet Azure AI Foundry.](./Media/ai-foundry-agents-playground.png)
+    >**Remarque** : Si un quota est disponible, un modèle de base GPT-4o peut être déployé automatiquement lors de la création de votre Agent et de votre projet.
 
-    >**Remarque** : un modèle de base GPT-4o est automatiquement déployé lors de la création de votre agent et de votre projet.
+1. Une fois votre projet créé, le terrain de jeu Agents est ouvert.
 
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
-
-    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
 
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./Media/ai-foundry-project.png)
 
@@ -101,7 +101,7 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry) et vérifiez que la variable MODEL_DEPLOYMENT_NAME est définie sur votre nom de modèle de déploiement (qui doit être *gpt-4o*).
 1. Une fois que vous avez remplacé l’espace réservé, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Écrire du code pour une application agent
@@ -160,7 +160,7 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
    agent = agent_client.create_agent(
         model=model_deployment,
         name="data-agent",
-        instructions="You are an AI agent that analyzes the data in the file that has been uploaded. If the user requests a chart, create it and save it as a .png file.",
+        instructions="You are an AI agent that analyzes the data in the file that has been uploaded. Use Python to calculate statistical metrics as necessary.",
         tools=code_interpreter.definitions,
         tool_resources=code_interpreter.resources,
    )
@@ -221,19 +221,6 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
            print(f"{message.role}: {last_msg.text.value}\n")
     ```
 
-1. Recherchez le commentaire **Obtenir tous les fichiers** générés et ajoutez le code suivant pour obtenir des annotations de chemin d’accès de fichier à partir des messages (ce qui indique que l’agent a enregistré un fichier dans son stockage interne) et copiez les fichiers dans le dossier de l’application. _REMARQUE_ : actuellement, le contenu de l’image n’est pas disponible dans le système.
-
-    ```python
-   # Get any generated files
-   for msg in messages:
-       # Save every image file in the message
-       for img in msg.image_contents:
-           file_id = img.image_file.file_id
-           file_name = f"{file_id}_image_file.png"
-           agent_client.files.save(file_id=file_id, file_name=file_name)
-           print(f"Saved image file to: {Path.cwd() / file_name}")
-    ```
-
 1. Recherchez le commentaire **Nettoyer** et ajoutez le code suivant pour supprimer l’agent et le thread quand cela n’est plus nécessaire.
 
     ```python
@@ -244,12 +231,11 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 1. Passez en revue le code en utilisant les commentaires pour comprendre comment il effectue les tâches suivantes :
     - Se connecte au projet AI Foundry.
     - Charge le fichier de données et crée un outil interpréteur de code qui peut y accéder.
-    - Crée un agent qui utilise l’outil interpréteur de code et contient des instructions explicites pour analyser les données et créer des graphiques en tant que fichiers .png.
+    - Crée un agent qui utilise l’outil d’interpréteur de code et contient des instructions explicites pour utiliser Python si nécessaire pour l’analyse statistique.
     - Exécute un thread avec un message d’invite de l’utilisateur, ainsi que les données à analyser.
     - Vérifie le statut de l’exécution en cas d’échec.
     - Récupère les messages du thread terminé et affiche le dernier envoyé par l’agent.
     - Affiche l’historique des conversations.
-    - Enregistre chaque fichier généré.
     - Supprime l’agent et le thread lorsqu’ils ne sont plus nécessaires.
 
 1. Enregistrez le fichier de code (*Ctrl+S*) lorsque vous avez terminé. Vous pouvez également fermer l’éditeur de code (*Ctrl+Q*).Vous pouvez toutefois le laisser ouvert au cas où vous deviez apporter des modifications au code que vous avez ajouté. Dans les deux cas, laissez le volet de ligne de commande Cloud Shell ouvert.
@@ -283,28 +269,26 @@ Vous êtes maintenant prêt à créer une application cliente qui utilise un age
 
     > **Conseil** : si l’application échoue en raison du dépassement de la limite de débit, patientez quelques secondes, puis réessayez. Si le quota disponible dans votre abonnement est insuffisant, le modèle peut ne pas être en mesure de répondre.
 
-1. Affichez la réponse. Entrez ensuite une autre invite, cette fois en demandant un graphique :
+1. Affichez la réponse. Entrez ensuite une autre invite, cette fois en demandant une visualisation :
 
     ```
-   Create a pie chart showing cost by category
+   Create a text-based bar chart showing cost by category
     ```
 
-    L’agent doit utiliser de manière sélective l’outil interpréteur de code en fonction des besoins, dans ce cas pour créer un graphique basé sur votre demande.
+1. Affichez la réponse. Entrez ensuite une autre invite, cette fois en demandant une métrique statistique :
+
+    ```
+   What's the standard deviation of cost?
+    ```
+
+    Affichez la réponse.
 
 1. Vous pouvez continuer la conversation si vous le souhaitez. Le thread est *avec état* et conserve donc l’historique des conversations. Cela signifie que l’agent a le contexte complet de chaque réponse. Lorsque vous avez terminé, entrez `quit`.
-1. Examinez les messages de conversation récupérés à partir du thread ainsi que les fichiers générés.
-
-1. Lorsque l’application a terminé, utilisez la commande de **téléchargement** Cloud Shell pour télécharger chaque fichier PNG enregistré dans le dossier de l’application. Par exemple :
-
-    ```
-   download ./<file_name>.png
-    ```
-
-    La commande de téléchargement crée un lien contextuel en bas à droite de votre navigateur, que vous pouvez sélectionner pour télécharger et ouvrir le fichier.
+1. Passez en revue les messages de conversation récupérés à partir de la conversation, qui peuvent inclure les messages générés par l’agent pour expliquer ses étapes lors de l’utilisation de l’outil d’interpréteur de code.
 
 ## Résumé
 
-Dans cet exercice, vous avez utilisé le kit de développement logiciel (SDK) Azure AI Agent Service pour créer une application cliente qui utilise un agent IA. L’agent utilise l’outil interpréteur de code intégré pour exécuter du code dynamique qui crée des images.
+Dans cet exercice, vous avez utilisé le kit de développement logiciel (SDK) Azure AI Agent Service pour créer une application cliente qui utilise un agent IA. L’agent peut utiliser l’outil interpréteur de code intégré pour exécuter du code Python dynamique pour effectuer des analyses statistiques.
 
 ## Nettoyage
 

@@ -10,6 +10,8 @@ Dans cet exercice, vous allez créer un projet qui orchestre deux agents IA à l
 
 Pour cet exercice, vous disposez de quatre exemples de fichiers journaux. Le code de l’agent assistant DevOps met uniquement à jour les exemples de fichiers journaux avec des exemples de messages journaux.
 
+> **Conseil** : Le code utilisé dans cet exercice est basé sur le kit de développement logiciel (SDK) du noyau sémantique pour Python. Vous pouvez développer des solutions similaires à l’aide des kits de développement logiciel (SDK) pour Microsoft .NET et Java. Pour plus d’informations, reportez-vous à [Langages](https://learn.microsoft.com/semantic-kernel/get-started/supported-languages) de noyau sémantique pris en charge.
+
 Cet exercice devrait prendre environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
@@ -46,8 +48,6 @@ Commençons par déployer un projet Azure AI Foundry.
 
 1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
-
-    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
 
     ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./Media/ai-foundry-project.png)
 
@@ -96,10 +96,10 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install python-dotenv azure-identity semantic-kernel[azure] 
+   pip install python-dotenv azure-identity semantic-kernel --upgrade
     ```
 
-    > **Remarque** : l’installation du *semantic-kernel[azure]* entraîne l’installation automatique d’une version compatible avec le noyau sémantique des *azure-ai-projects*.
+    > **Remarque** : L’installation du *noyau sémantique* entraîne l’installation automatique d’une version compatible avec le noyau sémantique des *azure-ai-projects*.
 
 1. Entrez la commande suivante pour modifier le fichier de configuration fourni :
 
