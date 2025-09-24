@@ -131,7 +131,7 @@ Dans cette tâche, vous vous connecterez à un serveur MCP distant, préparerez 
    )
     ```
 
-1. Sous le commentaire **Initialiser l'outil MCP de l'agent**, ajoutez le code suivant :
+1. Sous le commentaire **Initialiser l'outil MCP de l'agent**, Ajoutez le code suivant :
 
     ```python
    # Initialize agent MCP tool
@@ -202,7 +202,7 @@ Dans cette tâche, vous vous connecterez à un serveur MCP distant, préparerez 
    print(f"Created run, ID: {run.id}")
     ```
     
-    L'agent IA invoque automatiquement les outils MCP connectés pour traiter la demande immédiate. Pour illustrer ce processus, le code fourni sous le commentaire **Afficher les étapes d'exécution et les appels d'outils** affichera tous les outils invoqués à partir du serveur MCP.
+    L'agent IA invoque automatiquement les outils MCP connectés pour traiter la requête immédiate. Pour illustrer ce processus, le code fourni sous le commentaire **Afficher les étapes d'exécution et les appels d'outils** affichera tous les outils invoqués à partir du serveur MCP.
 
 1. Enregistrez le fichier de code (*Ctrl+S*) lorsque vous avez terminé. Vous pouvez également fermer l’éditeur de code (*Ctrl+Q*).Vous pouvez toutefois le laisser ouvert au cas où vous deviez apporter des modifications au code que vous avez ajouté. Dans les deux cas, laissez le volet de ligne de commande Cloud Shell ouvert.
 

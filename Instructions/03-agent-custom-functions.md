@@ -8,7 +8,7 @@ lab:
 
 Dans cet exercice, vous allez explorer la création d’un agent qui peut utiliser des fonctions personnalisées pour effectuer des tâches. Vous allez créer un agent de support technique simple capable de collecter des informations sur un problème technique et générer un ticket de support.
 
-> **Conseil** : Le code utilisé dans cet exercice est basé sur le Kit de développement logiciel (SDK) Azure AI Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des Kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, reportez-vous aux [bibliothèques clientes du Kit de développement logiciel (SDK) Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
+> **Conseil** : Le code utilisé dans cet exercice est basé sur le Kit de développement logiciel (SDK) Azure AI Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, consultez les [bibliothèques client du SDK Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
 
 Cet exercice devrait prendre environ **30** minutes.
 
@@ -28,7 +28,7 @@ Commençons par créer un projet Azure AI Foundry.
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
+    - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
 
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
