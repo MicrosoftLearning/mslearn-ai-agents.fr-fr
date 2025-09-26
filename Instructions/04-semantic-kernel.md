@@ -29,7 +29,7 @@ Commençons par déployer un projet Azure AI Foundry.
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
+    - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
 
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
@@ -147,7 +147,7 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
 
     > **Remarque** : la fonction *simule* l’envoi d’un e-mail en l’affichant dans la console. Dans un scénario réel, vous utiliseriez un service SMTP ou similaire pour envoyer l’e-mail.
 
-1. Remontez dans le nouveau code de la classe **EmailPlugin**, dans la fonction **create_expense_claim**, et recherchez le commentaire **Obtenir les paramètres de configuration**. Ensuite, ajoutez le code suivant pour charger le fichier de configuration et créer un objet **AzureAIAgentSettings** (il inclura automatiquement les paramètres de l’agent Azure AI à partir de la configuration).
+1. Remontez dans le nouveau code de la classe **EmailPlugin**, dans la fonction **process_expenses_data**, et recherchez le commentaire **Obtenir les paramètres de configuration**. Ensuite, ajoutez le code suivant pour charger le fichier de configuration et créer un objet **AzureAIAgentSettings** (il inclura automatiquement les paramètres de l’agent Azure AI à partir de la configuration).
 
     (Veillez à maintenir le niveau de mise en retrait)
 
