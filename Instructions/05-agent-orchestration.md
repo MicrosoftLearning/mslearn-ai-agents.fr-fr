@@ -125,7 +125,7 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
    import asyncio
    from typing import cast
    from agent_framework import ChatMessage, Role, SequentialBuilder, WorkflowOutputEvent
-   from agent_framework.azure import AzureOpenAIChatClient
+   from agent_framework.azure import AzureAIAgentClient
    from azure.identity import AzureCliCredential
     ```
 
@@ -135,10 +135,15 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
 
     ```python
    # Create the chat client
-   chat_client = AzureOpenAIChatClient(credential=AzureCliCredential())
+   credential = AzureCliCredential()
+   async with (
+       AzureAIAgentClient(async_credential=credential) as chat_client,
+   ):
     ```
 
 1. Ajoutez le code suivant sous le commentaire **Créer des agents** :
+
+    (Veillez à maintenir le niveau de mise en retrait)
 
     ```python
    # Create agents
@@ -162,6 +167,8 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
 
 1. Dans la fonction **main**, recherchez le commentaire **Initialiser le retour actuel** et ajoutez le code suivant :
     
+    (Veillez à maintenir le niveau de mise en retrait)
+
     ```python
    # Initialize the current feedback
    feedback="""
@@ -175,7 +182,7 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
 
     ```python
    # Build sequential orchestration
-    workflow = SequentialBuilder().participants([summarizer, classifier, action]).build()
+   workflow = SequentialBuilder().participants([summarizer, classifier, action]).build()
     ```
 
     Les agents traiteront le retour dans l’ordre dans lequel ils sont ajoutés à l’orchestration.
