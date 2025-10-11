@@ -14,41 +14,36 @@ Cet exercice devrait prendre environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Déployer un modèle dans un projet Azure AI Foundry
+## Créer un projet Azure AI Foundry
 
-Commençons par déployer un projet Azure AI Foundry.
+Commençons par créer un projet Azure AI Foundry.
 
 1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
 
-1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
-1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
-1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
+1. Sur la page d’accueil, sélectionnez **Créer un agent**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez les **options avancées**.
 1. Confirmez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
+    - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
 
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Créer** et attendez que votre projet, y compris le déploiement du modèle gpt-4 que vous avez sélectionné, soit créé.
-1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement.
+1. Sélectionnez **Créer** et attendez que votre projet soit créé.
+1. Si vous y êtes invité, déployez un modèle **gpt-4o** en utilisant l’option de déploiement *Standard global* ou *Standard* (selon la disponibilité de votre quota).
 
-    > **Remarque** : le paramètre TPM (jetons par minute) par défaut pour ce modèle pourrait être trop faible pour cet exercice. La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans votre abonnement. 
+    >**Remarque** : Si un quota est disponible, un modèle de base GPT-4o peut être déployé automatiquement lors de la création de votre Agent et de votre projet.
 
-1. Dans le volet de navigation de gauche, sélectionnez **Modèles et points de terminaison**, puis sélectionnez votre déploiement **gpt-4o**.
-
-1. Sélectionnez **Modifier**, puis augmentez la **limite du taux de jetons par minute**.
-
-   > **REMARQUE** : 40 000 jetons par minute devraient suffire pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à ce montant, vous serez en mesure d’effectuer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites si la limite de jetons est dépassée.
+1. Une fois votre projet créé, le terrain de jeu Agents est ouvert.
 
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./Media/ai-foundry-project.png)
 
-1. Copiez la valeur du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous l’utiliserez pour vous connecter à votre projet dans une application cliente.
+1. Copiez les valeurs du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous les utiliserez pour vous connecter à votre projet dans une application cliente.
 
 ## Créer une application cliente de l’agent IA
 
@@ -106,7 +101,7 @@ Vous êtes maintenant prêt à créer une application cliente qui définit les a
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o.
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o (qui est `gpt-4o` par défaut).
 
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
@@ -125,133 +120,200 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
 1. Recherchez le commentaire **Ajouter des références** et ajoutez le code suivant pour importer les classes dont vous aurez besoin :
 
     ```python
-    # Add references
-    from azure.ai.agents import AgentsClient
-    from azure.ai.agents.models import ConnectedAgentTool, MessageRole, ListSortOrder, ToolSet, FunctionTool
-    from azure.identity import DefaultAzureCredential
+   # Add references
+   from azure.ai.agents import AgentsClient
+   from azure.ai.agents.models import ConnectedAgentTool, MessageRole, ListSortOrder, ToolSet, FunctionTool
+   from azure.identity import DefaultAzureCredential
     ```
 
-1. Sous le commentaire **Instructions pour l’agent principal**, entrez le code suivant :
+1. Notez que le code permettant de charger le point de terminaison du projet et le nom du modèle à partir de vos variables d’environnement a été fourni.
+
+1. Recherchez le commentaire **Se connecter au client des agents** et ajoutez le code suivant pour créer un AgentClient connecté à votre projet :
 
     ```python
-    # Instructions for the primary agent
-    triage_agent_instructions = """
-    Triage the given ticket. Use the connected tools to determine the ticket's priority, 
-    which team it should be assigned to, and how much effort it may take.
-    """
+   # Connect to the agents client
+   agents_client = AgentsClient(
+        endpoint=project_endpoint,
+        credential=DefaultAzureCredential(
+            exclude_environment_credential=True, 
+            exclude_managed_identity_credential=True
+        ),
+   )
     ```
 
-1. Recherchez le commentaire **Créer l’agent de priorité sur le service d’agent Azure AI** et ajoutez le code suivant pour créer un agent Azure AI.
+    Vous allez maintenant ajouter du code qui utilise AgentsClient pour créer plusieurs agents, chacun avec un rôle spécifique à jouer dans le traitement d’un ticket de support.
+
+    > **Conseil** : Lors de l’ajout du code suivant, veillez à conserver le niveau de retrait approprié sous l’instruction `using agents_client:`.
+
+1. Recherchez le commentaire **Créer un agent pour hiérarchiser les tickets de support** et entrez le code suivant (veillez à conserver le niveau de retrait approprié) :
 
     ```python
-    # Create the priority agent on the Azure AI agent service
-    priority_agent = agents_client.create_agent(
+   # Create an agent to prioritize support tickets
+   priority_agent_name = "priority_agent"
+   priority_agent_instructions = """
+   Assess how urgent a ticket is based on its description.
+
+   Respond with one of the following levels:
+   - High: User-facing or blocking issues
+   - Medium: Time-sensitive but not breaking anything
+   - Low: Cosmetic or non-urgent tasks
+
+   Only output the urgency level and a very brief explanation.
+   """
+
+   priority_agent = agents_client.create_agent(
         model=model_deployment,
         name=priority_agent_name,
         instructions=priority_agent_instructions
-    )
+   )
     ```
 
-    Ce code crée la définition de l’agent sur votre client d’agent Azure AI.
-
-1. Recherchez le commentaire **Créer un outil d’agent connecté pour l’agent de priorité** et ajoutez le code suivant :
+1. Recherchez le commentaire **Créer un agent pour affecter des tickets à l’équipe appropriée**, puis entrez le code suivant :
 
     ```python
-    # Create a connected agent tool for the priority agent
-    priority_agent_tool = ConnectedAgentTool(
-        id=priority_agent.id, 
-        name=priority_agent_name, 
-        description="Assess the priority of a ticket"
-    )
-    ```
+   # Create an agent to assign tickets to the appropriate team
+   team_agent_name = "team_agent"
+   team_agent_instructions = """
+   Decide which team should own each ticket.
 
-    Nous allons maintenant créer les autres agents de triage.
+   Choose from the following teams:
+   - Frontend
+   - Backend
+   - Infrastructure
+   - Marketing
 
-1. Sous le commentaire **Créer l’agent d’équipe et l’outil connecté**, ajoutez le code suivant :
-    
-    ```python
-    # Create the team agent and connected tool
-    team_agent = agents_client.create_agent(
+   Base your answer on the content of the ticket. Respond with the team name and a very brief explanation.
+   """
+
+   team_agent = agents_client.create_agent(
         model=model_deployment,
         name=team_agent_name,
         instructions=team_agent_instructions
-    )
-    team_agent_tool = ConnectedAgentTool(
-        id=team_agent.id, 
-        name=team_agent_name, 
-        description="Determines which team should take the ticket"
-    )
+   )
     ```
 
-1. Sous le commentaire **Créer l’agent d’effort et l’outil connecté**, ajoutez le code suivant :
-    
+1. Recherchez le commentaire **Créer un agent pour estimer l’effort d’un ticket de support**, puis entrez le code suivant :
+
     ```python
-    # Create the effort agent and connected tool
-    effort_agent = agents_client.create_agent(
+   # Create an agent to estimate effort for a support ticket
+   effort_agent_name = "effort_agent"
+   effort_agent_instructions = """
+   Estimate how much work each ticket will require.
+
+   Use the following scale:
+   - Small: Can be completed in a day
+   - Medium: 2-3 days of work
+   - Large: Multi-day or cross-team effort
+
+   Base your estimate on the complexity implied by the ticket. Respond with the effort level and a brief justification.
+   """
+
+   effort_agent = agents_client.create_agent(
         model=model_deployment,
         name=effort_agent_name,
         instructions=effort_agent_instructions
-    )
-    effort_agent_tool = ConnectedAgentTool(
+   )
+    ```
+
+    Jusqu’à présent, vous avez créé trois agents ; chacun d’entre eux a un rôle spécifique dans le triage d’un ticket de support. Nous allons maintenant créer des objets ConnectedAgentTool pour chacun de ces agents afin qu’ils puissent être utilisés par d’autres agents.
+
+1. Recherchez le commentaire **Créer des outils d’agent connecté pour les agents de support**, puis entrez le code suivant :
+
+    ```python
+   # Create connected agent tools for the support agents
+   priority_agent_tool = ConnectedAgentTool(
+        id=priority_agent.id, 
+        name=priority_agent_name, 
+        description="Assess the priority of a ticket"
+   )
+    
+   team_agent_tool = ConnectedAgentTool(
+        id=team_agent.id, 
+        name=team_agent_name, 
+        description="Determines which team should take the ticket"
+   )
+    
+   effort_agent_tool = ConnectedAgentTool(
         id=effort_agent.id, 
         name=effort_agent_name, 
         description="Determines the effort required to complete the ticket"
-    )
+   )
     ```
 
+    Vous êtes maintenant prêt à créer un agent principal qui coordonnera le processus de triage des tickets à l’aide des agents connectés en fonction des besoins.
 
-1. Sous le commentaire **Créer un agent principal avec les outils de l’agent connecté**, ajoutez le code suivant :
-    
+1. Recherchez le commentaire **Créer un agent pour trier le traitement des tickets de support à l’aide d’agents connectés**, puis entrez le code suivant :
+
     ```python
-    # Create a main agent with the Connected Agent tools
-    agent = agents_client.create_agent(
+   # Create an agent to triage support ticket processing by using connected agents
+   triage_agent_name = "triage-agent"
+   triage_agent_instructions = """
+   Triage the given ticket. Use the connected tools to determine the ticket's priority, 
+   which team it should be assigned to, and how much effort it may take.
+   """
+
+   triage_agent = agents_client.create_agent(
         model=model_deployment,
-        name="triage-agent",
+        name=triage_agent_name,
         instructions=triage_agent_instructions,
         tools=[
             priority_agent_tool.definitions[0],
             team_agent_tool.definitions[0],
             effort_agent_tool.definitions[0]
         ]
-    )
+   )
     ```
 
-1. Recherchez le commentaire **Créer un thread pour la session de conversation** et ajoutez le code suivant :
-    
+    Maintenant que vous avez défini un agent principal, vous pouvez lui envoyer une invite et lui demander d’utiliser les autres agents pour trier un problème de support.
+
+1. Recherchez le commentaire **Utiliser les agents pour trier un problème de support** et entrez le code suivant :
+
     ```python
-    # Create thread for the chat session
-    print("Creating agent thread.")
-    thread = agents_client.threads.create()
-    ```
+   # Use the agents to triage a support issue
+   print("Creating agent thread.")
+   thread = agents_client.threads.create()  
 
-
-1. Sous le commentaire **Créer l’invite de tickets**, puis ajoutez le code suivant :
+   # Create the ticket prompt
+   prompt = input("\nWhat's the support problem you need to resolve?: ")
     
-    ```python
-    # Create the ticket prompt
-    prompt = "Users can't reset their password from the mobile app."
-
-    ```
-
-1. Ajoutez le commentaire **Envoyer une invite à l’agent** et ajoutez le code suivant :
-    
-    ```python
-    # Send a prompt to the agent
-    message = agents_client.messages.create(
+   # Send a prompt to the agent
+   message = agents_client.messages.create(
         thread_id=thread.id,
         role=MessageRole.USER,
         content=prompt,
-    )
-    ```
-
-1. Sous le commentaire **Créer et traiter l’agent exécuté dans le thread avec des outils** et ajoutez le code suivant :
+   )   
     
-    ```python
-    # Create and process Agent run in thread with tools
-    print("Processing agent thread. Please wait.")
-    run = agents_client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
+   # Run the thread usng the primary agent
+   print("\nProcessing agent thread. Please wait.")
+   run = agents_client.runs.create_and_process(thread_id=thread.id, agent_id=triage_agent.id)
+        
+   if run.status == "failed":
+        print(f"Run failed: {run.last_error}")
+
+   # Fetch and display messages
+   messages = agents_client.messages.list(thread_id=thread.id, order=ListSortOrder.ASCENDING)
+   for message in messages:
+        if message.text_messages:
+            last_msg = message.text_messages[-1]
+            print(f"{message.role}:\n{last_msg.text.value}\n")
+   
     ```
 
+1. Recherchez le commentaire **Nettoyer**et entrez le code suivant pour supprimer les agents lorsqu’ils ne sont plus nécessaires :
+
+    ```python
+   # Clean up
+   print("Cleaning up agents:")
+   agents_client.delete_agent(triage_agent.id)
+   print("Deleted triage agent.")
+   agents_client.delete_agent(priority_agent.id)
+   print("Deleted priority agent.")
+   agents_client.delete_agent(team_agent.id)
+   print("Deleted team agent.")
+   agents_client.delete_agent(effort_agent.id)
+   print("Deleted effort agent.")
+    ```
+    
 
 1. Utilisez la commande **Ctrl+S** pour enregistrer les modifications que vous avez apportées au fichier de code. Vous pouvez laisser le code ouvert (si vous devez le modifier pour corriger les erreurs) ou utiliser la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
@@ -277,7 +339,9 @@ Vous avez effectué toutes les préparations nécessaires à l’exécution de v
    python agent_triage.py
     ```
 
-    Vous devez obtenir une sortie similaire à la suivante :
+1. Entrez une invite, par exemple `Users can't reset their password from the mobile app.`.
+
+    Une fois que les agents traitent l’invite, vous devriez voir une sortie similaire à ce qui suit :
 
     ```output
     Creating agent thread.
