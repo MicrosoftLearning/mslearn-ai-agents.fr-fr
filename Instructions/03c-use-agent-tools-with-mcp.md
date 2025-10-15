@@ -199,6 +199,15 @@ Dans cette tâche, vous vous connecterez à un serveur MCP distant, préparerez 
    print(f"Created message, ID: {message.id}")
     ```
 
+1. Trouvez le commentaire **Définir le mode d’approbation** et ajoutez le code suivant :
+
+    ```python
+    # Set approval mode
+    mcp_tool.set_approval_mode("never")
+    ```
+
+    Cela permet à l’assistant d’invoquer automatiquement les outils MCP sans nécessiter l’approbation de l’utilisateur. Si vous souhaitez exiger une approbation, vous devez fournir une valeur d’en-tête à l’aide de `mcp_tool.update_headers`.
+
 1. Recherchez le commentaire **Créer et traiter l’exécution de l’agent dans un thread à l’aide des outils MCP** et ajoutez le code suivant :
 
     ```python
