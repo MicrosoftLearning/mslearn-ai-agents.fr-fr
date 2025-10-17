@@ -68,7 +68,7 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
 
 1. Dans le catalogue de modèles, recherchez le modèle **gpt-4o** (vous pouvez utiliser la barre de recherche pour le trouver rapidement).
 
-    ![Capture d’écran du catalogue de modèles dans l’extension Azure AI Foundry pour VS Code.](media/vs-code-model.png)
+    ![Capture d’écran du catalogue de modèles dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-model.png)
 
 1. Sélectionnez **Déployer dans Azure** à côté du modèle gpt-4o.
 
@@ -92,7 +92,7 @@ Vous allez maintenant créer un assistant IA à l’aide de l’interface du con
 
 1. Sélectionnez l’icône **+** (plus) à côté de la sous-section **Assistants** pour créer un nouvel assistant IA.
 
-    ![Capture d’écran de la création d’un assistant dans l’extension Azure AI Foundry pour VS Code.](media/vs-code-new-agent.png)
+    ![Capture d’écran de la création d’un assistant dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-new-agent.png)
 
 1. Choisissez un emplacement pour enregistrer les fichiers de votre assistant lorsque vous y êtes invité.
 
@@ -117,7 +117,7 @@ Vous allez maintenant ajouter un outil de Serveur MCP (Model Context Protocol) q
 
 1. Dans la section **OUTIL** du concepteur, sélectionnez le bouton **Ajouter un outil** dans le coin supérieur droit.
 
-![Capture d’écran de l’ajout d’un outil à un assistant dans l’extension Azure AI Foundry pour VS Code.](media/vs-code-agent-tools.png)
+![Capture d’écran de l’ajout d’un outil à un assistant dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-agent-tools.png)
 
 1. Dans le menu déroulant, choisissez **Serveur MCP**.
 
