@@ -141,6 +141,8 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
    ):
     ```
 
+    Notez que l’objet **AzureCliCredential** permettra à votre code de s’authentifier sur votre compte Azure. L’objet **AzureAIAgentClient** inclura automatiquement les paramètres du projet Azure AI Foundry à partir de la configuration .env.
+
 1. Ajoutez le code suivant sous le commentaire **Créer des agents** :
 
     (Veillez à maintenir le niveau de mise en retrait)

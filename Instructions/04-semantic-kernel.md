@@ -157,7 +157,7 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
    ):
     ```
 
-    Notez que l’objet **AzureCliCredential** inclura automatiquement les paramètres du projet Azure AI Foundry issus de la configuration.
+    Notez que l’objet **AzureCliCredential** permettra à votre code de s’authentifier sur votre compte Azure. L’objet **AzureAIAgentClient** inclura automatiquement les paramètres du projet Azure AI Foundry à partir de la configuration .env.
 
 1. Recherchez le commentaire **Utiliser l’agent pour traiter les données de dépenses** et ajoutez le code suivant pour créer un thread pour que votre agent s’exécute, puis appelez-le avec un message de conversation.
 
