@@ -18,19 +18,21 @@ Cet exercice devrait prendre environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Déployer un modèle dans un projet Azure AI Foundry
+## Déployer un modèle dans un projet Microsoft Foundry
 
-Commençons par déployer un projet Azure AI Foundry.
+Commençons par déployer un modèle dans un projet Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
+1. Dans un navigateur web, ouvrez le [portail Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
-    ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
+    ![Capture d’écran du portail Foundry.](./Media/ai-foundry-home.png)
+
+    > **Important** : Assurez-vous que le bouton bascule **Nouveau Foundry** est *désactivé* pour ce labo.
 
 1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
 1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
 1. Confirmez les paramètres suivants pour votre projet :
-    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
+    - **Ressource Foundry** : *Nom valide de votre ressource Foundry*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
@@ -46,7 +48,7 @@ Commençons par déployer un projet Azure AI Foundry.
 1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./Media/ai-foundry-project.png)
+    ![Capture d’écran des détails d’un projet Azure AI dans le portail Foundry.](./Media/ai-foundry-project.png)
 
 ## Créer une application cliente de l’agent IA
 
@@ -54,7 +56,7 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
 
 ### Préparer l’environnement
 
-1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 
     Fermez les notifications de bienvenue pour afficher la page d’accueil du portail Azure.
 
@@ -104,7 +106,7 @@ Vous avez effectué toutes les préparations nécessaires à la création d’un
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_openai_endpoint** par le point de terminaison de votre projet (copié à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry). Remplacez l’espace réservé **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o.
+1. Dans le fichier de code, remplacez l’espace réservé **your_openai_endpoint** par le point de terminaison de votre projet (copié à partir de la page **Vue d’ensemble** du projet dans le portail Foundry). Remplacez l’espace réservé **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o.
 
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
@@ -141,7 +143,7 @@ Vous avez effectué toutes les préparation nécessaires à la création d’age
    ):
     ```
 
-    Notez que l’objet **AzureCliCredential** permettra à votre code de s’authentifier sur votre compte Azure. L’objet **AzureAIAgentClient** inclura automatiquement les paramètres du projet Azure AI Foundry à partir de la configuration .env.
+    Notez que l’objet **AzureCliCredential** permettra à votre code de s’authentifier sur votre compte Azure. L’objet **AzureAIAgentClient** inclura automatiquement les paramètres du projet Foundry à partir de la configuration .env.
 
 1. Ajoutez le code suivant sous le commentaire **Créer des agents** :
 
@@ -229,7 +231,7 @@ Vous avez effectué toutes les préparations nécessaires à l’exécution de v
 
     > **Remarque** :dans la plupart des scénarios, l’utilisation d’*az login* suffit. Toutefois, si vous avez des abonnements dans plusieurs locataires, vous devrez peut-être spécifier le locataire à l’aide du paramètre *--tenant*. Pour plus d’informations, consultez [Se connecter à Azure de manière interactive à l’aide d’Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively).
 
-1. Lorsque l’invite apparaît, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni ainsi que vos informations d’identification Azure. Effectuez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Azure AI Foundry si nécessaire.
+1. Lorsque l’invite apparaît, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni ainsi que vos informations d’identification Azure. Effectuez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Foundry si nécessaire.
 
 1. Une fois la connexion effectuée, entrez la commande suivante pour exécuter l’application :
 

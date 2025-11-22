@@ -1,12 +1,12 @@
 ---
 lab:
   title: Développer un assistant IA avec l’extension VS Code
-  description: Utilisez l’extension Azure AI Foundry pour VS Code afin de créer un assistant IA.
+  description: Utilisez l’extension Microsoft Foundry pour VS Code afin de créer un assistant IA.
 ---
 
 # Développer un assistant IA avec l’extension VS Code
 
-Dans cet exercice, vous allez utiliser l’extension Azure AI Foundry pour VS Code afin de créer un assistant capable d’utiliser les outils de serveur MCP (Model Context Protocol) pour accéder à des sources de données externes et à des API. L’assistant sera capable de récupérer des informations à jour et d’interagir avec divers services via les outils MCP.
+Dans cet exercice, vous allez utiliser l’extension Microsoft Foundry VS Code afin de créer un assistant capable d’utiliser les outils de serveur MCP (Model Context Protocol) pour accéder à des sources de données externes et à des API. L’assistant sera capable de récupérer des informations à jour et d’interagir avec divers services via les outils MCP.
 
 Cet exercice devrait prendre environ **30** minutes.
 
@@ -18,7 +18,7 @@ Avant de commencer cet exercice, assurez-vous que vous disposez des éléments s
 - Visual Studio Code installé
 - Un abonnement Azure actif
 
-## Installez l’extension Azure AI Foundry pour VS Code
+## Installez l’extension Foundry pour VS Code
 
 Commençons par installer et configurer l’extension VS Code.
 
@@ -26,9 +26,9 @@ Commençons par installer et configurer l’extension VS Code.
 
 1. Sélectionnez **Extensions** dans le volet gauche (ou appuyez sur **Ctrl+Maj+X**).
 
-1. Dans la barre de recherche, tapez **Azure AI Foundry** et appuyez sur Entrée.
+1. Dans la barre de recherche, tapez **Foundry** et appuyez sur Entrée.
 
-1. Sélectionnez l’extension **Azure AI Foundry** de Microsoft et cliquez sur **Installer**.
+1. Sélectionnez l’extension **Foundry** de Microsoft et cliquez sur **Installer**.
 
 1. Une fois l’installation terminée, vérifiez que l’extension apparaît dans la barre de navigation principale à gauche de Visual Studio Code.
 
@@ -36,13 +36,13 @@ Commençons par installer et configurer l’extension VS Code.
 
 Vous allez maintenant vous connecter à vos ressources Azure et créer un nouveau projet AI Foundry.
 
-1. Dans la barre latérale de VS Code, sélectionnez l’icône de l’extension **Azure AI Foundry**.
+1. Dans la barre latérale de VS Code, sélectionnez l’icône de l’extension **Foundry**.
 
 1. Dans la vue Azure Resources, sélectionnez **Se connecter à Azure...** et suivez les prompts d’authentification.
 
 1. Une fois connecté, sélectionnez votre abonnement Azure dans la liste déroulante.
 
-1. Créez un nouveau projet Azure AI Foundry en sélectionnant l’icône **+** (plus) à côté de **Ressources** dans la vue Extension Azure AI Foundry.
+1. Créez un nouveau projet Foundry en sélectionnant l’icône **+** (plus) à côté de **Ressources** dans la vue Extension Foundry.
 
 1. Choisissez de créer un nouveau groupe de ressources ou d’utiliser un groupe existant :
    
@@ -54,7 +54,7 @@ Vous allez maintenant vous connecter à vos ressources Azure et créer un nouvea
    **Pour utiliser un groupe de ressources existant :**
    - Sélectionnez le groupe de ressources que vous souhaitez utiliser dans la liste et appuyez sur Entrée
 
-1. Entrez un nom pour votre projet Azure AI Foundry (par exemple, « ai-agents-project ») dans la zone de texte et appuyez sur Entrée.
+1. Entrez un nom pour votre projet Foundry (par exemple, « ai-agents-project ») dans la zone de texte et appuyez sur Entrée.
 
 1. Attendez la fin du déploiement du projet. Une fenêtre contextuelle apparaîtra avec le message « Projet déployé avec succès ».
 
@@ -64,11 +64,11 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
 
 1. Lorsque la fenêtre contextuelle « Projet déployé avec succès » s’affiche, sélectionnez le bouton **Déployer un modèle**. Cela ouvre le catalogue de modèles.
 
-   > **Conseil** : Vous pouvez également accéder au catalogue de modèles en sélectionnant l’icône **+** à côté de **Modèles** dans la section Ressources, ou en appuyant sur **F1** et en exécutant la commande **Azure AI Foundry : Ouvrez le catalogue de modèles**.
+   > **Conseil** : Vous pouvez également accéder au catalogue de modèles en sélectionnant l’icône **+** à côté de **Modèles** dans la section Ressources, ou en appuyant sur **F1** et en exécutant la commande **Foundry : Ouvrez le catalogue de modèles**.
 
 1. Dans le catalogue de modèles, recherchez le modèle **gpt-4o** (vous pouvez utiliser la barre de recherche pour le trouver rapidement).
 
-    ![Capture d’écran du catalogue de modèles dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-model.png)
+    ![Capture d’écran du catalogue de modèles dans l’extension Foundry pour VS Code.](Media/vs-code-model.png)
 
 1. Sélectionnez **Déployer dans Azure** à côté du modèle gpt-4o.
 
@@ -78,7 +78,7 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
    - **Version du modèle** : Laissez par défaut
    - **Jetons par minute** : Laissez par défaut
 
-1. Sélectionnez **Déployer dans Azure AI Foundry** dans le coin inférieur gauche.
+1. Sélectionnez **Déployer dans Foundry** dans le coin inférieur gauche.
 
 1. Dans la boîte de dialogue de confirmation, sélectionnez **Déployer** pour déployer le modèle.
 
@@ -88,11 +88,11 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
 
 Vous allez maintenant créer un assistant IA à l’aide de l’interface du concepteur visuel.
 
-1. Dans la vue de l’extension Azure AI Foundry, recherchez la section **Ressources**.
+1. Dans la vue de l’extension Foundry, recherchez la section **Ressources**.
 
 1. Sélectionnez l’icône **+** (plus) à côté de la sous-section **Assistants** pour créer un nouvel assistant IA.
 
-    ![Capture d’écran de la création d’un assistant dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-new-agent.png)
+    ![Capture d’écran de la création d’un assistant dans l’extension Foundry pour VS Code.](Media/vs-code-new-agent.png)
 
 1. Choisissez un emplacement pour enregistrer les fichiers de votre assistant lorsque vous y êtes invité.
 
@@ -117,7 +117,7 @@ Vous allez maintenant ajouter un outil de Serveur MCP (Model Context Protocol) q
 
 1. Dans la section **OUTIL** du concepteur, sélectionnez le bouton **Ajouter un outil** dans le coin supérieur droit.
 
-![Capture d’écran de l’ajout d’un outil à un assistant dans l’extension Azure AI Foundry pour VS Code.](Media/vs-code-agent-tools.png)
+![Capture d’écran de l’ajout d’un outil à un assistant dans l’extension Foundry pour VS Code.](Media/vs-code-agent-tools.png)
 
 1. Dans le menu déroulant, choisissez **Serveur MCP**.
 
@@ -129,9 +129,9 @@ Vous allez maintenant ajouter un outil de Serveur MCP (Model Context Protocol) q
 
 1. Sélectionnez le bouton **Créer un outil** pour ajouter l’outil à votre assistant.
 
-## Déployez votre assistant sur Azure AI Foundry
+## Déployez votre assistant sur Foundry
 
-1. Dans la vue du concepteur, sélectionnez le bouton **Créer sur Azure AI Foundry** dans le coin inférieur gauche.
+1. Dans la vue du concepteur, sélectionnez le bouton **Créer sur Foundry** dans le coin inférieur gauche.
 
 1. Attendez la fin du déploiement.
 
@@ -186,15 +186,15 @@ Vous pouvez utiliser ce code comme point de départ pour créer des applications
 
 ## Résumé
 
-Dans cet exercice, vous avez utilisé l’extension Azure AI Foundry pour VS Code pour créer un assistant IA avec les outils de serveur MCP. L’assistant peut accéder à des sources de données externes et à des API via le serveur MCP (Model Context Protocol), ce qui lui permet de fournir des informations à jour et d’interagir avec divers services. Vous avez également appris à tester l’assistant dans le terrain de jeu et à générer un exemple de code pour l’interaction par programmation.
+Dans cet exercice, vous avez utilisé l’extension Foundry pour VS Code pour créer un assistant IA avec les outils de serveur MCP. L’assistant peut accéder à des sources de données externes et à des API via le serveur MCP (Model Context Protocol), ce qui lui permet de fournir des informations à jour et d’interagir avec divers services. Vous avez également appris à tester l’assistant dans le terrain de jeu et à générer un exemple de code pour l’interaction par programmation.
 
 ## Nettoyage
 
-Une fois que vous avez terminé d’explorer l’extension Azure AI Foundry pour VS Code, vous devez nettoyer les ressources afin d’éviter des coûts Azure inutiles.
+Une fois que vous avez terminé d’explorer l’extension Foundry pour VS Code, vous devez nettoyer les ressources afin d’éviter des coûts Azure inutiles.
 
 ### Supprimez vos assistants
 
-1. Dans le portail Azure AI Foundry, sélectionnez **Assistants** dans le menu de navigation.
+1. Dans le portail Foundry, sélectionnez **Assistants** dans le menu de navigation.
 
 1. Sélectionnez votre assistant, puis sélectionnez le bouton **Supprimer**.
 

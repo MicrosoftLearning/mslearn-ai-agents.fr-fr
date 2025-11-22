@@ -1,29 +1,31 @@
 ---
 lab:
   title: Découvrir le développement d’agents IA
-  description: Découvrez les étapes de développement d’agents IA en explorant Azure AI Agent Service dans le portail Azure AI Foundry.
+  description: Découvrez les étapes de développement d’assistants IA en explorant le service Azure AI Agent dans le portail Microsoft Foundry.
 ---
 
 # Explorez le développement de l’agent d’IA.
 
-Dans cet exercice, vous utilisez Azure AI Agent Service dans le portail Azure AI Foundry pour créer un agent IA simple qui répond aux questions des employés relatives aux notes de frais.
+Dans cet exercice, vous utilisez Azure AI Agent Service dans le portail Microsoft Foundry pour créer un assistant IA simple qui répond aux questions des employés relatives aux notes de frais.
 
 Cet exercice prend environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Créer un projet et un agent Azure AI Foundry
+## Créer un projet et un assistant Foundry
 
-Commençons par créer un projet Azure AI Foundry.
+Commençons par créer un projet Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
+1. Dans un navigateur web, ouvrez le [portail Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
-    ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
+    ![Capture d’écran du portail Foundry.](./Media/ai-foundry-home.png)
+
+    > **Important** : Assurez-vous que le bouton bascule **Nouveau Foundry** est *désactivé* pour ce labo.
 
 1. Sur la page d’accueil, sélectionnez **Créer un agent**.
 1. Lorsqu’il vous est demandé de créer un projet, entrez un nom valide pour votre projet.
 1. Développez les **options avancées** et définissez les paramètres suivants :
-    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
+    - **Ressource Foundry** : *Nom valide de votre ressource Foundry*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *sélectionnez votre groupe de ressources ou créez-en un*.
     - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\**
@@ -37,7 +39,7 @@ Commençons par créer un projet Azure AI Foundry.
 
 1. Une fois le projet créé, le terrain de jeu Agents s’ouvrira automatiquement pour vous permettre de sélectionner ou de déployer un modèle :
 
-    ![Capture d’écran du terrain de jeu Agents d’un projet Azure AI Foundry.](./Media/ai-foundry-agents-playground.png)
+    ![Capture d’écran du terrain de jeu des assistants d’un projet Foundry.](./Media/ai-foundry-agents-playground.png)
 
     >**Remarque** : un modèle de base GPT-4o est automatiquement déployé lors de la création de votre agent et de votre projet.
 
@@ -57,7 +59,7 @@ Maintenant que vous avez déployé un modèle, tout est prêt pour créer un age
    If a user wants to submit an expense claim, you get their email address, a description of the claim, and the amount to be claimed and write the claim details to a text file that the user can download.
     ```
 
-    ![Capture d’écran de la page de configuration de l’agent IA dans le portail Azure AI Foundry.](./Media/ai-agent-setup.png)
+    ![Capture d’écran de la page de configuration de l’assistant IA dans le portail Foundry.](./Media/ai-agent-setup.png)
 
 1. Plus loin dans le volet **Configuration**, en regard de l’en-tête **Connaissances**, sélectionnez **+ Ajouter**. Ensuite, dans la boîte de dialogue **Ajouter une connaissance**, sélectionnez **Fichiers**.
 1. Dans la boîte de dialogue **Ajout de fichiers**, créez un magasin de vecteurs nommé `Expenses_Vector_Store`, chargez et enregistrez le fichier local **Expenses_policy.docx** que vous avez téléchargé précédemment.
@@ -79,7 +81,7 @@ Maintenant que vous avez créé un agent, vous pouvez le tester dans la conversa
 1. Envoyez une invite qui décrit la revendication et le montant, par exemple, `Breakfast cost me $20`.
 1. L’agent doit utiliser l’interpréteur de code pour préparer le fichier texte de la demande de frais et fournir un lien pour pouvoir le télécharger.
 
-    ![Capture d’écran du terrain de jeu de l’agent dans le portail Azure AI Foundry.](./Media/ai-agent-playground.png)
+    ![Capture d’écran du terrain de jeu des assistants dans le portail Foundry.](./Media/ai-agent-playground.png)
 
 1. Téléchargez et ouvrez le document texte pour afficher les détails de la demande de frais.
 
