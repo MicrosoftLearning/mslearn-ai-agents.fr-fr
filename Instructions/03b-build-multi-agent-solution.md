@@ -1,31 +1,33 @@
 ---
 lab:
-  title: Développer une solution multi-agent avec Azure AI Foundry
-  description: Découvrez comment configurer plusieurs agents pour collaborer à l’aide du service Azure AI Foundry Agent.
+  title: Développez une solution multi-assistants avec Microsoft Foundry
+  description: Découvrez comment configurer plusieurs assistants pour collaborer à l’aide du service de l’agent Foundry
 ---
 
 # Développer une solution multi-agent
 
-Dans cet exercice, vous allez créer un projet qui orchestre plusieurs agents IA à l’aide du service Azure AI Foundry Agent. Vous allez concevoir une solution IA qui facilitera le triage des tickets. Les agents connectés évaluent la priorité du ticket, suggèrent une affectation d’équipe et déterminent le niveau d’effort nécessaire pour terminer le ticket. C’est parti !
+Dans cet exercice, vous allez créer un projet qui orchestre plusieurs assistants IA à l’aide du service de l’agent Microsoft Foundry. Vous allez concevoir une solution IA qui facilitera le triage des tickets. Les agents connectés évaluent la priorité du ticket, suggèrent une affectation d’équipe et déterminent le niveau d’effort nécessaire pour terminer le ticket. C’est parti !
 
-> **Conseil** : Le code utilisé dans cet exercice est basé sur le SDK Azure AI Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, consultez les [bibliothèques client du SDK Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
+> **Conseil** : Le code utilisé dans cet exercice est basé sur le kit de développement logiciel (SDK) Foundry pour Python. Vous pouvez développer des solutions similaires à l’aide des kits de développement logiciel (SDK) pour Microsoft .NET, JavaScript et Java. Pour plus d’informations, consultez [Bibliothèques clientes du kit de développement logiciel (SDK) Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview).
 
 Cet exercice devrait prendre environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Créer un projet Azure AI Foundry
+## Créer un projet Foundry
 
-Commençons par créer un projet Azure AI Foundry.
+Commençons par créer un projet Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
+1. Dans un navigateur web, ouvrez le [portail Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
-    ![Capture d’écran du portail Azure AI Foundry.](./Media/ai-foundry-home.png)
+    ![Capture d’écran du portail Foundry.](./Media/ai-foundry-home.png)
+
+    > **Important** : Assurez-vous que le bouton bascule **Nouveau Foundry** est *désactivé* pour ce labo.
 
 1. Sur la page d’accueil, sélectionnez **Créer un agent**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez les **options avancées**.
 1. Confirmez les paramètres suivants pour votre projet :
-    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
+    - **Ressource Foundry** : *Nom valide de votre ressource Foundry*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
@@ -41,9 +43,9 @@ Commençons par créer un projet Azure AI Foundry.
 
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./Media/ai-foundry-project.png)
+    ![Capture d’écran d’une page de vue d’ensemble d’un projet Foundry.](./Media/ai-foundry-project.png)
 
-1. Copiez les valeurs du **point de terminaison du projet Azure AI Foundry** dans un bloc-notes, car vous les utiliserez pour vous connecter à votre projet dans une application cliente.
+1. Copiez les valeurs **Point de terminaison du projet Foundry** dans un bloc-notes, car vous les utiliserez pour vous connecter à votre projet dans une application cliente.
 
 ## Créer une application cliente de l’agent IA
 
@@ -51,7 +53,7 @@ Vous êtes maintenant prêt à créer une application cliente qui définit les a
 
 ### Préparer l’environnement
 
-1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 
     Fermez les notifications de bienvenue pour afficher la page d’accueil du portail Azure.
 
@@ -101,7 +103,7 @@ Vous êtes maintenant prêt à créer une application cliente qui définit les a
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o (qui est `gpt-4o` par défaut).
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par le point de terminaison de votre projet (copié depuis la page **Vue d’ensemble** du projet dans le portail Foundry), et l’espace réservé **your_model_deployment** par le nom que vous avez attribué à votre modèle de déploiement gpt-4o (qui est `gpt-4o` par défaut).
 
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
@@ -331,7 +333,7 @@ Vous avez effectué toutes les préparations nécessaires à l’exécution de v
 
     > **Remarque** :dans la plupart des scénarios, l’utilisation d’*az login* suffit. Toutefois, si vous avez des abonnements dans plusieurs locataires, vous devrez peut-être spécifier le locataire à l’aide du paramètre *--tenant*. Pour plus d’informations, consultez [Se connecter à Azure de manière interactive à l’aide d’Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively).
 
-1. Lorsque l’invite apparaît, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni ainsi que vos informations d’identification Azure. Effectuez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Azure AI Foundry si nécessaire.
+1. Lorsque l’invite apparaît, suivez les instructions pour ouvrir la page de connexion dans un nouvel onglet et entrez le code d’authentification fourni ainsi que vos informations d’identification Azure. Effectuez ensuite le processus de connexion dans la ligne de commande, en sélectionnant l’abonnement contenant votre hub Foundry si nécessaire.
 
 1. Une fois la connexion effectuée, entrez la commande suivante pour exécuter l’application :
 
