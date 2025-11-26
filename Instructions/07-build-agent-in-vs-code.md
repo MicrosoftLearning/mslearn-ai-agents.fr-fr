@@ -18,7 +18,7 @@ Avant de commencer cet exercice, assurez-vous que vous disposez des éléments s
 - Visual Studio Code installé
 - Un abonnement Azure actif
 
-## Installez l’extension Foundry pour VS Code
+## Installez l’extension Microsoft Foundry pour VS Code
 
 Commençons par installer et configurer l’extension VS Code.
 
@@ -26,9 +26,9 @@ Commençons par installer et configurer l’extension VS Code.
 
 1. Sélectionnez **Extensions** dans le volet gauche (ou appuyez sur **Ctrl+Maj+X**).
 
-1. Dans la barre de recherche, tapez **Foundry** et appuyez sur Entrée.
+1. Dans la barre de recherche, tapez **Microsoft Foundry** et appuyez sur Entrée.
 
-1. Sélectionnez l’extension **Foundry** de Microsoft et cliquez sur **Installer**.
+1. Sélectionnez l’extension **Microsoft Foundry** de Microsoft et cliquez sur **Installer**.
 
 1. Une fois l’installation terminée, vérifiez que l’extension apparaît dans la barre de navigation principale à gauche de Visual Studio Code.
 
@@ -36,13 +36,15 @@ Commençons par installer et configurer l’extension VS Code.
 
 Vous allez maintenant vous connecter à vos ressources Azure et créer un nouveau projet AI Foundry.
 
-1. Dans la barre latérale de VS Code, sélectionnez l’icône de l’extension **Foundry**.
+1. Dans la barre latérale de VS Code, sélectionnez l’icône de l’extension **Microsoft Foundry**.
 
-1. Dans la vue Azure Resources, sélectionnez **Se connecter à Azure...** et suivez les prompts d’authentification.
+1. Dans la vue Ressources, sélectionnez **Se connecter à Azure...** et suivez les prompts d’authentification.
 
-1. Une fois connecté, sélectionnez votre abonnement Azure dans la liste déroulante.
+   > **Remarque** : Vous ne verrez pas cette option si vous êtes déjà connecté.
 
 1. Créez un nouveau projet Foundry en sélectionnant l’icône **+** (plus) à côté de **Ressources** dans la vue Extension Foundry.
+
+1. Sélectionnez votre abonnement Azure dans la liste déroulante.
 
 1. Choisissez de créer un nouveau groupe de ressources ou d’utiliser un groupe existant :
    
@@ -64,21 +66,21 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
 
 1. Lorsque la fenêtre contextuelle « Projet déployé avec succès » s’affiche, sélectionnez le bouton **Déployer un modèle**. Cela ouvre le catalogue de modèles.
 
-   > **Conseil** : Vous pouvez également accéder au catalogue de modèles en sélectionnant l’icône **+** à côté de **Modèles** dans la section Ressources, ou en appuyant sur **F1** et en exécutant la commande **Foundry : Ouvrez le catalogue de modèles**.
+   > **Conseil** : Vous pouvez également accéder au Catalogue de modèles en sélectionnant l’icône **+** à côté de **Modèles** dans la section Ressources, ou en appuyant sur **F1** et en exécutant la commande **Microsoft Foundry : Ouvrez le catalogue de modèles**.
 
-1. Dans le catalogue de modèles, recherchez le modèle **gpt-4o** (vous pouvez utiliser la barre de recherche pour le trouver rapidement).
+1. Dans le Catalogue de modèles, recherchez le modèle **gpt-4** (vous pouvez utiliser la barre de recherche pour le trouver rapidement).
 
     ![Capture d’écran du catalogue de modèles dans l’extension Foundry pour VS Code.](Media/vs-code-model.png)
 
-1. Sélectionnez **Déployer dans Azure** à côté du modèle gpt-4o.
+1. Sélectionnez **Déployer** à côté du modèle gpt-4.
 
 1. Configurez les paramètres de déploiement :
-   - **Nom du déploiement** : Entrez un nom tel que « gpt-4o-deployment »
+   - **Nom du déploiement** : Entrez un nom tel que « gpt-4-deployment »
    - **Type de déploiement** : Sélectionnez **Global Standard** (ou **Standard** si Global Standard n’est pas disponible)
    - **Version du modèle** : Laissez par défaut
    - **Jetons par minute** : Laissez par défaut
 
-1. Sélectionnez **Déployer dans Foundry** dans le coin inférieur gauche.
+1. Sélectionnez **Déployer dans Microsoft Foundry** dans le coin inférieur gauche.
 
 1. Dans la boîte de dialogue de confirmation, sélectionnez **Déployer** pour déployer le modèle.
 
@@ -86,23 +88,22 @@ Vous aurez besoin d’un modèle déployé à utiliser avec votre assistant.
 
 ## Créer un assistant IA avec la vue concepteur
 
-Vous allez maintenant créer un assistant IA à l’aide de l’interface du concepteur visuel.
+Vous allez maintenant créer un assistant IA à l’aide de l’interface du concepteur visuel. Au lieu d’écrire du code, vous allez configurer les instructions, les paramètres et les outils de l’assistant via l’interface utilisateur.
 
-1. Dans la vue de l’extension Foundry, recherchez la section **Ressources**.
+1. Dans la vue de l’extension Microsoft Foundry, recherchez la section **Ressources**.
 
-1. Sélectionnez l’icône **+** (plus) à côté de la sous-section **Assistants** pour créer un nouvel assistant IA.
+1. Sélectionnez l’icône **+** (signe plus) à côté de la sous-section **Assistants déclaratifs** pour créer un nouvel assistant IA.
 
-    ![Capture d’écran de la création d’un assistant dans l’extension Foundry pour VS Code.](Media/vs-code-new-agent.png)
+    ![Capture d’écran de la création d’un assistant dans l’extension Microsoft Foundry pour VS Code.](Media/vs-code-new-agent.png)
 
 1. Choisissez un emplacement pour enregistrer les fichiers de votre assistant lorsque vous y êtes invité.
 
-1. La vue du concepteur d’assistant s’ouvrira avec un fichier de configuration `.yaml`.
+1. Un onglet **Nouvel assistant** s’ouvrira dans l’éditeur « Préférences de l’assistant », avec un fichier de configuration `.yaml`.
 
 ### Configurez votre assistant dans le concepteur
 
-1. Dans le concepteur d’assistant, configurez les champs suivants :
+1. Dans les préférences de l’assistant, configurez les champs suivants :
    - **Nom** : Entrez un nom descriptif pour votre assistant (par exemple, « data-research-agent »)
-   - **Description** : Ajoutez une description expliquant l’objectif de l’assistant
    - **Modèle** : Sélectionnez votre déploiement GPT-4o dans la liste déroulante
    - **Instructions** : Entrez les instructions système telles que :
      ```
@@ -129,17 +130,17 @@ Vous allez maintenant ajouter un outil de Serveur MCP (Model Context Protocol) q
 
 1. Sélectionnez le bouton **Créer un outil** pour ajouter l’outil à votre assistant.
 
-## Déployez votre assistant sur Foundry
+## Déployez votre assistant sur Microsoft Foundry
 
-1. Dans la vue du concepteur, sélectionnez le bouton **Créer sur Foundry** dans le coin inférieur gauche.
+1. Dans la vue du concepteur d’assistant, sélectionnez le bouton **Créer un assistant sur Microsoft Foundry** dans le coin inférieur gauche.
 
 1. Attendez la fin du déploiement.
 
-1. Dans la barre de navigation VS Code, actualisez la vue **Ressources Azure**. Votre assistant déployé devrait maintenant apparaître dans la sous-section **Assistants**.
+1. Dans la barre de navigation VS Code, actualisez la vue **Ressources**. Votre assistant déployé devrait maintenant apparaître dans la sous-section **Assistants déclaratifs**.
 
 ## Testez votre assistant dans le terrain de jeu
 
-1. Cliquez avec le bouton droit sur votre assistant déployé dans la sous-section **Assistants**.
+1. Faites un clic droit sur votre assistant déployé dans la sous-section **Assistants déclaratifs**.
 
 1. Sélectionnez **Ouvrir le terrain de jeu** dans le menu contextuel.
 
