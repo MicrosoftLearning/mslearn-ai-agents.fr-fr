@@ -1,3 +1,5 @@
+**⚠️ This GitHub repo will retire on 30th December 2025.**
+
 # Développer des agents IA dans Azure
 
 Les exercices de ce référentiel constituent un apprentissage pratique durant lequel vous allez explorer les tâches habituelles des équipes de développement lors de la création d’agents IA dans Microsoft Azure.
